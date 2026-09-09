@@ -1,6 +1,6 @@
 """
 LexisPulse AI: Enterprise Security & Threat Mitigation Module
-Implements prompt injection filtering, payload bounding, and cryptographic hashing.
+Implements prompt injection filtering, payload bounding, HTML sanitization, and cryptographic hashing.
 """
 
 import re
@@ -20,23 +20,27 @@ PROMPT_INJECTION_PATTERNS = [
 ]
 
 def sanitize_legal_input(text: str) -> str:
-    """Sanitizes legal input text, stripping harmful escape tags and potential prompt injections."""
+    """Sanitizes legal input text, stripping harmful HTML tags and potential prompt injections."""
     if not text:
         return ""
     
     # 1. Truncate if exceeds bounds
     sanitized = text[:MAX_DOCUMENT_BYTES]
 
-    # 2. Neutralize known prompt injection markers
+    # 2. Strip HTML/Script tags
+    sanitized = re.sub(r"<script.*?>.*?</script>", "", sanitized, flags=re.DOTALL | re.IGNORECASE)
+    sanitized = re.sub(r"<[^>]+>", "", sanitized)
+
+    # 3. Neutralize known prompt injection markers
     for pattern in PROMPT_INJECTION_PATTERNS:
         sanitized = re.sub(pattern, "[FILTERED_SECURITY_TOKEN]", sanitized)
 
-    # 3. Clean null bytes and control chars
+    # 4. Clean null bytes and control chars
     sanitized = "".join(ch for ch in sanitized if ch.isprintable() or ch in "\n\r\t")
 
     return sanitized.strip()
 
 def generate_attestation_hash(contract_name: str, payload_str: str) -> str:
     """Generates an immutable cryptographic SHA-256 attestation token."""
-    entropy = f"LexisPulse:Enterprise:{contract_name}:{time.time()}:{payload_str}"
+    entropy = f"LexisPulse:Enterprise:{contract_name}:{payload_str}"
     return hashlib.sha256(entropy.encode('utf-8')).hexdigest()

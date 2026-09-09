@@ -70,3 +70,5 @@ class SoundFX {
 }
 
 export const soundFX = new SoundFX();
+export const playHapticClick = () => soundFX.playClick();
+export const playSuccessChime = () => soundFX.playSuccess();
