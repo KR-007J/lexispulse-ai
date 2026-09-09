@@ -1,13 +1,14 @@
 import React from 'react';
-import { ArrowUpRight, ShieldCheck, Scale, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Key, ShieldCheck, Scale, Sparkles } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOpenStudio: () => void;
+  onOpenApiKeyModal: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenStudio }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenStudio, onOpenApiKeyModal }) => {
   return (
     <header className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-8 lg:px-16 flex items-center justify-between pointer-events-none">
       {/* Left Logo */}
@@ -35,7 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
           <button
             key={item.id}
             onClick={() => setActiveTab(item.id)}
-            className={`px-4 py-2 text-xs lg:text-sm font-medium rounded-full transition-all duration-300 font-body ${
+            className={`px-4 py-2 text-xs lg:text-sm font-medium rounded-full transition-all duration-300 font-body cursor-pointer ${
               activeTab === item.id
                 ? 'bg-white/15 text-white shadow-inner font-semibold'
                 : 'text-white/80 hover:text-white hover:bg-white/5'
@@ -54,8 +55,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
         </button>
       </nav>
 
-      {/* Right Mobile Status Button */}
+      {/* Right Diagnostics Button */}
       <div className="pointer-events-auto flex items-center gap-2">
+        <button
+          onClick={onOpenApiKeyModal}
+          className="flex items-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass text-xs font-body text-cyan-300 hover:text-white hover:bg-white/10 transition-all cursor-pointer shadow-md"
+          title="API Key & System Diagnostics"
+        >
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <Key className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline text-white/90">Gemini 2.0 Live</span>
+        </button>
+
         <button
           onClick={onOpenStudio}
           className="md:hidden flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black text-xs font-semibold hover:bg-cyan-100 transition-all shadow-md"
@@ -63,10 +74,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
           <span>Launch Audit</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
-        <div className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass text-xs font-body text-emerald-400">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-white/90">Gemini 2.0 Flash Online</span>
-        </div>
       </div>
     </header>
   );

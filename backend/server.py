@@ -25,7 +25,7 @@ class LexisPulseHandler(http.server.SimpleHTTPRequestHandler):
     def send_cors_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, X-Gemini-API-Key")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
 
@@ -53,6 +53,16 @@ class LexisPulseHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(resp).encode())
             return
 
+        elif self.path == "/api/diagnostics":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_cors_headers()
+            self.end_headers()
+            with STATE_LOCK:
+                diag = legal_engine.get_diagnostics()
+            self.wfile.write(json.dumps(diag).encode())
+            return
+
         super().do_GET()
 
     def do_POST(self):
@@ -63,6 +73,11 @@ class LexisPulseHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(b'{"error": "Payload exceeds 5MB limit"}')
             return
+
+        # Check for dynamic client API key header
+        client_key = self.headers.get("X-Gemini-API-Key")
+        if client_key and len(client_key.strip()) > 8:
+            legal_engine.set_api_key(client_key.strip())
 
         post_data = self.rfile.read(content_length)
         

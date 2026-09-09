@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { CapabilitiesSection } from './components/CapabilitiesSection';
 import { RedlineStudioModal } from './components/RedlineStudioModal';
+import { ApiKeyModal } from './components/ApiKeyModal';
 import { SAMPLE_CONTRACTS, ContractSample } from './data/sampleContracts';
 import { ArrowUpRight, ShieldCheck, Scale, Sparkles, Heart } from 'lucide-react';
 
@@ -10,6 +11,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [selectedContract, setSelectedContract] = useState<ContractSample>(SAMPLE_CONTRACTS[0]);
   const [isStudioOpen, setIsStudioOpen] = useState<boolean>(false);
+  const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState<boolean>(false);
 
   const handleOpenStudio = (contract?: ContractSample) => {
     if (contract) {
@@ -30,6 +32,7 @@ export default function App() {
           }
         }}
         onOpenStudio={() => handleOpenStudio()}
+        onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
       />
 
       {/* 2. Section 1: Hero */}
@@ -66,6 +69,9 @@ export default function App() {
           <button onClick={() => handleOpenStudio(SAMPLE_CONTRACTS[2])} className="hover:text-white transition-colors cursor-pointer">
             Employment Safeguards
           </button>
+          <button onClick={() => setIsApiKeyModalOpen(true)} className="text-cyan-400 hover:text-cyan-300 transition-colors cursor-pointer">
+            API Diagnostics
+          </button>
         </div>
 
         <div className="text-right text-[11px] text-white/40">
@@ -79,6 +85,12 @@ export default function App() {
         onClose={() => setIsStudioOpen(false)}
         contract={selectedContract}
         onSelectContract={setSelectedContract}
+      />
+
+      {/* 6. API Key & System Diagnostics HUD */}
+      <ApiKeyModal
+        isOpen={isApiKeyModalOpen}
+        onClose={() => setIsApiKeyModalOpen(false)}
       />
     </main>
   );
