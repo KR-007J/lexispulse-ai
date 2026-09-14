@@ -107,9 +107,12 @@ export const KnowledgeGraphView: React.FC<{ contractName: string }> = ({ contrac
 
         <svg
           viewBox="0 0 800 460"
+          role="img"
+          aria-label="Interactive clause dependency knowledge graph showing relationships between contract clauses and statutory frameworks"
           className="w-full h-full cursor-grab active:cursor-grabbing select-none"
           style={{ transform: `scale(${zoom})`, transformOrigin: 'center center', transition: 'transform 0.2s ease-out' }}
         >
+          <title>Clause Knowledge Graph</title>
           {/* Edges */}
           {edges.map((e, idx) => {
             const src = nodes.find(n => n.id === e.source)!;
@@ -141,6 +144,7 @@ export const KnowledgeGraphView: React.FC<{ contractName: string }> = ({ contrac
               <g
                 key={node.id}
                 onClick={() => { playHapticClick(); setSelectedNode(node); }}
+                aria-label={`${node.label} – Risk: ${node.risk}`}
                 className="cursor-pointer transition-all duration-200"
               >
                 {/* Halo */}

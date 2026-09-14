@@ -67,6 +67,9 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => 
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="api-key-dialog-title"
           className="relative w-full max-w-lg rounded-[2rem] bg-zinc-950 border border-white/20 shadow-2xl p-6 text-white font-body"
         >
           {/* Header */}
@@ -76,7 +79,7 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => 
                 <Key className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="font-heading italic text-xl text-white">
+                <h3 id="api-key-dialog-title" className="font-heading italic text-xl text-white">
                   Gemini 2.0 API & Diagnostics HUD
                 </h3>
                 <p className="text-xs text-white/60">Configure key & troubleshoot engine connectivity</p>
@@ -84,6 +87,7 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => 
             </div>
             <button
               onClick={onClose}
+              aria-label="Close API key dialog"
               className="w-8 h-8 rounded-full liquid-glass flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
@@ -116,7 +120,7 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => 
 
           {/* Key Input */}
           <div className="flex flex-col gap-2 mb-4">
-            <label className="text-xs font-semibold text-white/80 flex items-center justify-between">
+            <label htmlFor="api-key-input" className="text-xs font-semibold text-white/80 flex items-center justify-between">
               <span>Google Gemini API Key (Optional / Custom)</span>
               <a
                 href="https://aistudio.google.com/app/apikey"
@@ -129,6 +133,7 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => 
               </a>
             </label>
             <input
+              id="api-key-input"
               type="password"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}

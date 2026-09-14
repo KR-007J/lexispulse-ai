@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ShieldAlert, Scale, Swords, MessageSquareText, Sparkles, CheckCircle2, Play, RefreshCw, Cpu } from 'lucide-react';
 import { playHapticClick } from '../utils/audio';
 
@@ -8,7 +8,7 @@ interface AgentSwarmViewProps {
   contractText: string;
 }
 
-export const AgentSwarmView: React.FC<AgentSwarmViewProps> = ({ contractName, contractText }) => {
+export const AgentSwarmView: React.FC<AgentSwarmViewProps> = ({ contractName, contractText: _contractText }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [activeStep, setActiveStep] = useState(4); // Default show completed debate
 
@@ -162,7 +162,6 @@ export const AgentSwarmView: React.FC<AgentSwarmViewProps> = ({ contractName, co
       {/* 4 Agent Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {agents.map((agent, idx) => {
-          const Icon = agent.icon;
           const isActive = idx < activeStep;
           return (
             <motion.div
@@ -211,7 +210,7 @@ export const AgentSwarmView: React.FC<AgentSwarmViewProps> = ({ contractName, co
           <span className="text-xs font-mono text-zinc-400">Target: {contractName}</span>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3" aria-live="polite" aria-atomic="false">
           {debateTimeline.slice(0, activeStep).map((item, i) => (
             <motion.div
               key={i}

@@ -31,7 +31,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onOpen
   ];
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-black text-white px-4 sm:px-8 lg:px-16 pt-24 pb-12">
+    <section aria-labelledby="capabilities-heading" className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-black text-white px-4 sm:px-8 lg:px-16 pt-24 pb-12">
       {/* 1. Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         <FadingVideo
@@ -48,7 +48,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onOpen
           <span className="text-xs sm:text-sm font-body text-white/70 tracking-widest uppercase block mb-3">
             // Core Architecture & Capabilities
           </span>
-          <h2 className="font-heading italic text-white text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[0.92] tracking-[-3px]">
+          <h2 id="capabilities-heading" className="font-heading italic text-white text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[0.92] tracking-[-3px]">
             Legal intelligence <br />
             re-engineered.
           </h2>

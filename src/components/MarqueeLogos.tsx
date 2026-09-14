@@ -21,7 +21,7 @@ export const MarqueeLogos: React.FC = () => {
   const doubleList = [...LOGOS, ...LOGOS];
 
   return (
-    <div className="w-full relative overflow-hidden py-6 [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+    <div aria-hidden="true" className="w-full relative overflow-hidden py-6 [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
       <div className="flex w-max gap-4 animate-marquee hover:[animation-play-state:paused]">
         {doubleList.map((logo, index) => (
           <div

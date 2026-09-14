@@ -18,12 +18,15 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "node --test scripts/unit_tests.mjs && node scripts/a11y_audit.cjs",
+    "test": "vitest run --coverage",
     "test:unit": "node --test scripts/unit_tests.mjs",
     "test:a11y": "node scripts/a11y_audit.cjs",
     "test:backend": "python3 backend/test_audit.py",
     "typecheck": "tsc --noEmit",
-    "lint": "tsc --noEmit"
+    "lint": "eslint src --ext .ts,.tsx",
+    "test:watch": "vitest",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "audit": "npm audit --audit-level=moderate"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -34,13 +37,30 @@
     "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.70.0",
+    "@typescript-eslint/parser": "^8.70.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^2.1.9",
     "autoprefixer": "^10.4.20",
+    "eslint": "^10.10.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "jsdom": "^30.0.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "typescript": "^5.6.3",
-    "vite": "^5.4.11"
-  }
+    "vite": "^5.4.11",
+    "vitest": "^2.1.9"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://kr-007j.github.io/lexispulse-ai"
 }

@@ -125,6 +125,9 @@ export default function App() {
                 <div
                   key={i}
                   onClick={() => handleOpenStudio()}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && handleOpenStudio()}
                   className="p-5 rounded-2xl liquid-glass border border-white/10 hover:border-cyan-400/50 transition-all cursor-pointer flex flex-col justify-between group"
                 >
                   <div>

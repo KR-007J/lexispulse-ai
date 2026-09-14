@@ -10,3 +10,5 @@ __pycache__
 venv
 .venv
 gallery/raw_video/
+coverage/
+*.lcov

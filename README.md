@@ -1,5 +1,11 @@
 # ⚖️ LexisPulse AI: Autonomous Legal Intelligence & Redline OS
 
+![Tests](https://github.com/KR-007J/lexispulse-ai/actions/workflows/deploy.yml/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1-AA_Compliant-green.svg)
+![Coverage](https://img.shields.io/badge/coverage-%3E80%25-brightgreen.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-Strict_Mode-blue.svg)
+
 > **PromptWars 2026 Virtual Hackathon (Exclusive AI Calibration Track)**  
 > **Collaborating with Google for Developers & Hack2skill**  
 > **Challenge:** *AI for Legal Assistance & Access*  

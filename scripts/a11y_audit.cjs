@@ -36,4 +36,21 @@ assertA11y(modalTsx.includes('aria-label='), 'Modal controls feature explicit ar
 assertA11y(!heroTsx.includes('text-white/30'), 'No sub-standard low contrast text in HeroSection');
 assertA11y(!modalTsx.includes('text-white/30'), 'No sub-standard low contrast text in RedlineStudioModal');
 
-console.log(`\n🎉 Accessibility Audit Complete: ${passedChecks}/${totalChecks} checks passed (100% WCAG AA Compliance)`);
+// 5. Audit MarqueeLogos.tsx: must be aria-hidden (decorative)
+const marqueeTsx = fs.readFileSync(path.resolve('src/components/MarqueeLogos.tsx'), 'utf-8');
+assertA11y(marqueeTsx.includes('aria-hidden="true"'), 'MarqueeLogos container is aria-hidden (decorative marquee)');
+
+// 6. Audit AgentSwarmView.tsx: live debate feed must have aria-live
+const agentSwarmTsx = fs.readFileSync(path.resolve('src/components/AgentSwarmView.tsx'), 'utf-8');
+assertA11y(agentSwarmTsx.includes('aria-live'), 'AgentSwarmView debate feed has aria-live region for screen readers');
+
+// 7. Audit KnowledgeGraphView.tsx: SVG must have role="img"
+const knowledgeGraphTsx = fs.readFileSync(path.resolve('src/components/KnowledgeGraphView.tsx'), 'utf-8');
+assertA11y(knowledgeGraphTsx.includes('role="img"'), 'KnowledgeGraphView SVG has role="img" for accessibility');
+
+// 8. Audit Navbar.tsx: nav must have role="navigation"
+const navbarTsx = fs.readFileSync(path.resolve('src/components/Navbar.tsx'), 'utf-8');
+assertA11y(navbarTsx.includes('role="navigation"'), 'Navbar has explicit role="navigation" landmark');
+
+const status = passedChecks === totalChecks ? '✅ 100% WCAG AA Compliance' : `⚠️  ${totalChecks - passedChecks} check(s) FAILING`;
+console.log(`\n🎉 Accessibility Audit Complete: ${passedChecks}/${totalChecks} checks passed (${status})`);

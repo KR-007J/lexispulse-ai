@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
       </div>
 
       {/* Center Nav Pill */}
-      <nav className="pointer-events-auto hidden md:flex items-center gap-1 p-1.5 rounded-full liquid-glass shadow-2xl">
+      <nav role="navigation" aria-label="Main navigation" className="pointer-events-auto hidden md:flex items-center gap-1 p-1.5 rounded-full liquid-glass shadow-2xl">
         {[
           { id: 'overview', label: 'Overview' },
           { id: 'redline', label: 'Redline Diff' },
@@ -36,6 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
           <button
             key={item.id}
             onClick={() => setActiveTab(item.id)}
+            aria-current={activeTab === item.id ? 'page' : undefined}
             className={`px-4 py-2 text-xs lg:text-sm font-medium rounded-full transition-all duration-300 font-body cursor-pointer ${
               activeTab === item.id
                 ? 'bg-white/15 text-white shadow-inner font-semibold'

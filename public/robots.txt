@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kr-007j.github.io/lexispulse-ai/sitemap.xml
