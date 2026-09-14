@@ -27,7 +27,8 @@ import {
   Activity,
   Cpu,
   Network,
-  GitCompare
+  GitCompare,
+  UserCheck
 } from 'lucide-react';
 import { ContractSample, SAMPLE_CONTRACTS, ClauseRisk } from '../data/sampleContracts';
 import { soundFX } from '../utils/audio';
@@ -35,6 +36,7 @@ import { AgentSwarmView } from './AgentSwarmView';
 import { KnowledgeGraphView } from './KnowledgeGraphView';
 import { LiveClauseEditor } from './LiveClauseEditor';
 import { ContractCompareView } from './ContractCompareView';
+import { CounselPrepView } from './CounselPrepView';
 import { exportOfficialAuditDossier } from '../utils/pdfExport';
 
 const BACKEND_API = 'http://localhost:8000';
@@ -46,7 +48,7 @@ interface RedlineStudioModalProps {
   onSelectContract: (contract: ContractSample) => void;
 }
 
-type TabType = 'redline' | 'swarm' | 'graph' | 'editor' | 'compare' | 'matrix' | 'eli5' | 'qa' | 'upload';
+type TabType = 'redline' | 'swarm' | 'graph' | 'editor' | 'compare' | 'counsel' | 'matrix' | 'eli5' | 'qa' | 'upload';
 
 export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
   isOpen,
@@ -380,6 +382,7 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
                 { id: 'graph', label: 'Clause Graph', icon: Network },
                 { id: 'editor', label: 'Live Editor', icon: Edit3 },
                 { id: 'compare', label: 'Version Drift', icon: GitCompare },
+                { id: 'counsel', label: 'Counsel Prep', icon: UserCheck },
                 { id: 'matrix', label: 'Risk Matrix', icon: ShieldAlert },
                 { id: 'eli5', label: 'Plain English', icon: BookOpen },
                 { id: 'qa', label: 'Grounded Q&A', icon: Sparkles },
@@ -432,6 +435,12 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
             {activeTab === 'compare' && (
               <div className="p-6">
                 <ContractCompareView />
+              </div>
+            )}
+
+            {activeTab === 'counsel' && (
+              <div className="p-6">
+                <CounselPrepView contractName={contract.name} />
               </div>
             )}
 
