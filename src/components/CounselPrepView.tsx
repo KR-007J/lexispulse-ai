@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { UserCheck, HelpCircle, CheckSquare, Square, Printer, Copy, Check, Sparkles, AlertCircle } from 'lucide-react';
+import { UserCheck, CheckSquare, Square, Copy, Check, AlertCircle } from 'lucide-react';
 import { playHapticClick } from '../utils/audio';
 
 interface CounselPrepProps {

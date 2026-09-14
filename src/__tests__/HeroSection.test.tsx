@@ -1,20 +1,23 @@
+import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { HeroSection } from '../components/HeroSection';
 import { SAMPLE_CONTRACTS } from '../data/sampleContracts';
 
+type MockComponentProps = React.PropsWithChildren<Record<string, unknown>>;
+
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
-    section: ({ children, ...props }: any) => <section {...props}>{children}</section>,
-    ul: ({ children, ...props }: any) => <ul {...props}>{children}</ul>,
-    li: ({ children, ...props }: any) => <li {...props}>{children}</li>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    a: ({ children, ...props }: any) => <a {...props}>{children}</a>,
+    div: ({ children, ...props }: MockComponentProps) => <div {...props}>{children}</div>,
+    p: ({ children, ...props }: MockComponentProps) => <p {...props}>{children}</p>,
+    span: ({ children, ...props }: MockComponentProps) => <span {...props}>{children}</span>,
+    section: ({ children, ...props }: MockComponentProps) => <section {...props}>{children}</section>,
+    ul: ({ children, ...props }: MockComponentProps) => <ul {...props}>{children}</ul>,
+    li: ({ children, ...props }: MockComponentProps) => <li {...props}>{children}</li>,
+    button: ({ children, ...props }: MockComponentProps) => <button {...props}>{children}</button>,
+    a: ({ children, ...props }: MockComponentProps) => <a {...props}>{children}</a>,
   },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
+  AnimatePresence: ({ children }: MockComponentProps) => <>{children}</>,
   useAnimation: () => ({ start: vi.fn() }),
   useInView: () => [null, false],
   useScroll: () => ({ scrollYProgress: { get: () => 0 } }),

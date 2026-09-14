@@ -63,7 +63,7 @@ export const BlurText: React.FC<BlurTextProps> = ({ text, className = '', delayO
             marginRight: '0.28em',
           }}
         >
-          {word}
+          {word}{i < words.length - 1 ? ' ' : ''}
         </motion.span>
       ))}
     </p>

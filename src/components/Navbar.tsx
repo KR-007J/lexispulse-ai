@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, Key, ShieldCheck, Scale, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Key } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: string;

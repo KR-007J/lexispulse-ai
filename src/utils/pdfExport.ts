@@ -249,7 +249,7 @@ export function exportOfficialAuditDossier(data: ExportDossierParams) {
   `).join('')}
 
   <div class="footer">
-    <div>LexisPulse AI Enterprise Legal OS | PromptWars 2026 AI Calibration Track</div>
+    <div>AI for Legal Assistance & Access — LexisPulse AI | PromptWars 2026</div>
     <div class="seal">Attestation: ${shaToken.slice(0, 32)}...</div>
   </div>
 

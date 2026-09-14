@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Network, ZoomIn, ZoomOut, RotateCcw, AlertTriangle, ShieldCheck, Scale, Info } from 'lucide-react';
+import { Network, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { playHapticClick } from '../utils/audio';
 
 interface Node {
@@ -26,7 +26,7 @@ export const KnowledgeGraphView: React.FC<{ contractName: string }> = ({ contrac
 
   // Nodes positioning in virtual 800x480 canvas
   const nodes: Node[] = [
-    { id: 'root', label: 'Master Agreement', type: 'root', risk: 'LOW', x: 400, y: 220, desc: 'Root Enterprise Contract Node' },
+    { id: 'root', label: contractName || 'Master Agreement', type: 'root', risk: 'LOW', x: 400, y: 220, desc: `Root Enterprise Contract: ${contractName}` },
     { id: 'c1', label: 'Section 9: Indemnification', type: 'clause', risk: 'CRITICAL', x: 220, y: 120, desc: 'Uncapped defense obligation against third-party claims.' },
     { id: 'c2', label: 'Section 12: Liability Cap', type: 'clause', risk: 'HIGH', x: 200, y: 320, desc: 'Unlimited vendor liability and consequential damages.' },
     { id: 'c3', label: 'Section 14: Non-Compete', type: 'clause', risk: 'CRITICAL', x: 580, y: 120, desc: '36-month worldwide non-compete restraint.' },

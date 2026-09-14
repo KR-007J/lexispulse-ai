@@ -1,22 +1,25 @@
+import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
 
+type MockProps = React.PropsWithChildren<Record<string, unknown>>;
+
 // Mock framer-motion to avoid animation issues in tests
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
-    h1: ({ children, ...props }: any) => <h1 {...props}>{children}</h1>,
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
-    section: ({ children, ...props }: any) => <section {...props}>{children}</section>,
-    ul: ({ children, ...props }: any) => <ul {...props}>{children}</ul>,
-    li: ({ children, ...props }: any) => <li {...props}>{children}</li>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    nav: ({ children, ...props }: any) => <nav {...props}>{children}</nav>,
-    a: ({ children, ...props }: any) => <a {...props}>{children}</a>,
+    div: ({ children, ...props }: MockProps) => <div {...props}>{children}</div>,
+    p: ({ children, ...props }: MockProps) => <p {...props}>{children}</p>,
+    h1: ({ children, ...props }: MockProps) => <h1 {...props}>{children}</h1>,
+    span: ({ children, ...props }: MockProps) => <span {...props}>{children}</span>,
+    section: ({ children, ...props }: MockProps) => <section {...props}>{children}</section>,
+    ul: ({ children, ...props }: MockProps) => <ul {...props}>{children}</ul>,
+    li: ({ children, ...props }: MockProps) => <li {...props}>{children}</li>,
+    button: ({ children, ...props }: MockProps) => <button {...props}>{children}</button>,
+    nav: ({ children, ...props }: MockProps) => <nav {...props}>{children}</nav>,
+    a: ({ children, ...props }: MockProps) => <a {...props}>{children}</a>,
   },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
+  AnimatePresence: ({ children }: MockProps) => <>{children}</>,
   useAnimation: () => ({ start: vi.fn() }),
   useInView: () => [null, false],
   useScroll: () => ({ scrollYProgress: { get: () => 0 } }),

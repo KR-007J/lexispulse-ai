@@ -11,20 +11,13 @@ import {
   Copy,
   Check,
   Send,
-  ArrowUpRight,
   Upload,
-  Download,
   Printer,
   Volume2,
   VolumeX,
   RefreshCw,
   Edit3,
-  ThumbsUp,
-  RotateCcw,
-  Sliders,
   AlertTriangle,
-  FileText,
-  Activity,
   Cpu,
   Network,
   GitCompare,
@@ -32,6 +25,7 @@ import {
 } from 'lucide-react';
 import { ContractSample, SAMPLE_CONTRACTS, ClauseRisk } from '../data/sampleContracts';
 import { soundFX } from '../utils/audio';
+import { auditCache, qaCache } from '../utils/cache';
 import { AgentSwarmView } from './AgentSwarmView';
 import { KnowledgeGraphView } from './KnowledgeGraphView';
 import { LiveClauseEditor } from './LiveClauseEditor';
@@ -85,6 +79,16 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
 
     const runLiveAudit = async () => {
       try {
+        const cached = auditCache.get(contract.name);
+        if (cached) {
+          setBackendOnline(true);
+          setLiveLatencyMs(cached.triageLatencyMs || 1);
+          if (cached.sha256Attestation) {
+            setLiveAttestationHash(cached.sha256Attestation.slice(0, 24) + '...');
+          }
+          return;
+        }
+
         const t0 = performance.now();
         const textPayload = contract.clauses.map(c => `${c.section}: ${c.originalText}`).join('\n\n');
         
@@ -97,12 +101,14 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
         if (res.ok) {
           const data = await res.json();
           setBackendOnline(true);
-          setLiveLatencyMs(data.triageLatencyMs || Math.round(performance.now() - t0));
+          const latency = data.triageLatencyMs || Math.round(performance.now() - t0);
+          setLiveLatencyMs(latency);
           if (data.sha256Attestation) {
             setLiveAttestationHash(data.sha256Attestation.slice(0, 24) + '...');
           }
+          auditCache.set(contract.name, { ...data, triageLatencyMs: latency });
         }
-      } catch (err) {
+      } catch {
         setBackendOnline(false);
       }
     };
@@ -157,6 +163,23 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
     const query = userQuery;
     setUserQuery('');
     setChatHistory(prev => [...prev, { role: 'user', text: query }]);
+
+    const cacheKey = `${contract.name}:${query}`;
+    const cachedQA = qaCache.get(cacheKey);
+    if (cachedQA) {
+      soundFX.playSuccess();
+      setChatHistory(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          text: cachedQA.answer,
+          citation: cachedQA.verifiedCitation,
+          statute: cachedQA.statutoryAnchor
+        }
+      ]);
+      return;
+    }
+
     setIsQueryingQA(true);
 
     try {
@@ -173,6 +196,7 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
       if (res.ok) {
         const data = await res.json();
         soundFX.playSuccess();
+        qaCache.set(cacheKey, data);
         setChatHistory(prev => [
           ...prev,
           {
@@ -185,7 +209,7 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
       } else {
         throw new Error('QA Failed');
       }
-    } catch (err) {
+    } catch {
       setChatHistory(prev => [
         ...prev,
         {
@@ -230,7 +254,7 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
           criticalIssuesCount: data.criticalIssuesCount || 2,
           clausesCount: data.clausesCount || data.clauses.length,
           description: `Uploaded custom file '${file.name}' analyzed across ${data.clausesCount || data.clauses.length} dynamic AST clauses.`,
-          clauses: data.clauses.map((c: any) => ({
+          clauses: data.clauses.map((c: ClauseRisk) => ({
             id: c.id,
             section: c.section,
             title: c.title,
@@ -459,9 +483,20 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
                     <span className="text-[11px] font-semibold text-white/60 uppercase tracking-wider">
                       Live AST Clauses ({contract.clauses.length})
                     </span>
-                    <span className="text-[10px] text-cyan-300 font-mono">
-                      {acceptedCount} Remediated
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-cyan-300 font-mono">
+                        {acceptedCount} Remediated
+                      </span>
+                      {acceptedCount > 0 && (
+                        <button
+                          onClick={handleResetRemediations}
+                          className="text-[10px] text-rose-400 hover:text-rose-300 font-mono underline cursor-pointer"
+                          title="Reset all remediations"
+                        >
+                          Reset
+                        </button>
+                      )}
+                    </div>
                   </div>
 
                   {contract.clauses.map((clause) => {

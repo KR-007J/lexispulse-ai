@@ -106,7 +106,19 @@ export const LiveClauseEditor: React.FC<ClauseEditorProps> = ({ initialText, onA
         <div className="lg:col-span-2 space-y-3">
           <div className="flex items-center justify-between text-xs text-zinc-400">
             <span>Clause Draft Workspace</span>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  playHapticClick();
+                  setText(initialText || defaultSample);
+                  if (onApplyChange) onApplyChange(initialText || defaultSample);
+                }}
+                className="flex items-center gap-1 text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                title="Reset clause to original text"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Reset</span>
+              </button>
               <button
                 onClick={handleCopy}
                 className="flex items-center gap-1 text-zinc-300 hover:text-white transition-colors cursor-pointer"

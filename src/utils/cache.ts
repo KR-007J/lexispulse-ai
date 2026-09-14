@@ -57,5 +57,24 @@ export class MemoryCache<T> {
   }
 }
 
-export const auditCache = new MemoryCache<any>(50, 60);
-export const qaCache = new MemoryCache<any>(100, 60);
+export interface AuditCacheItem {
+  name?: string;
+  triageLatencyMs?: number;
+  sha256Attestation?: string;
+  overallRiskScore?: number;
+  riskGrade?: string;
+  criticalIssuesCount?: number;
+  clausesCount?: number;
+  clauses?: unknown[];
+  [key: string]: unknown;
+}
+
+export interface QACacheItem {
+  answer: string;
+  verifiedCitation?: string;
+  statutoryAnchor?: string;
+  [key: string]: unknown;
+}
+
+export const auditCache = new MemoryCache<AuditCacheItem>(50, 60);
+export const qaCache = new MemoryCache<QACacheItem>(100, 60);

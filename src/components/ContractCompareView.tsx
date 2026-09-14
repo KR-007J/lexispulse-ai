@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { GitCompare, TrendingDown, CheckCircle, AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react';
+import { GitCompare, TrendingDown, ShieldCheck } from 'lucide-react';
 import { playHapticClick } from '../utils/audio';
 
 interface VersionDelta {

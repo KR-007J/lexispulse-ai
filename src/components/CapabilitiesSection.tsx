@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FadingVideo } from './FadingVideo';
-import { ArrowUpRight, Scale, ShieldAlert, Sparkles, FileText, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { MarqueeLogos } from './MarqueeLogos';
 
 interface CapabilitiesSectionProps {
@@ -63,7 +63,11 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onOpen
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="p-6 rounded-[1.5rem] liquid-glass flex flex-col justify-between min-h-[380px] border border-white/10 hover:border-white/25 transition-all duration-300 group"
+              className="p-6 rounded-[1.5rem] liquid-glass flex flex-col justify-between min-h-[380px] border border-white/10 hover:border-cyan-400/40 transition-all duration-300 group cursor-pointer"
+              role="button"
+              tabIndex={0}
+              onClick={onOpenStudio}
+              onKeyDown={(e) => e.key === 'Enter' && onOpenStudio()}
             >
               {/* Top Row: Icon + Tag Pills */}
               <div className="flex items-start justify-between gap-4">
@@ -87,9 +91,12 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onOpen
 
               {/* Bottom: Title + Description */}
               <div className="mt-8">
-                <h3 className="font-heading italic text-white text-3xl sm:text-4xl tracking-tight leading-none mb-3 group-hover:text-cyan-200 transition-colors">
-                  {card.title}
-                </h3>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-heading italic text-white text-3xl sm:text-4xl tracking-tight leading-none group-hover:text-cyan-200 transition-colors">
+                    {card.title}
+                  </h3>
+                  <ArrowUpRight className="w-5 h-5 text-white/40 group-hover:text-cyan-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                </div>
                 <p className="text-xs sm:text-sm text-white/80 font-body font-light leading-relaxed">
                   {card.desc}
                 </p>

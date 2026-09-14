@@ -10,17 +10,19 @@ import { LiveClauseEditor } from '../components/LiveClauseEditor';
 import { ApiKeyModal } from '../components/ApiKeyModal';
 import { RedlineStudioModal } from '../components/RedlineStudioModal';
 
+type MockProps = React.PropsWithChildren<Record<string, unknown>>;
+
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
-    h1: ({ children, ...props }: any) => <h1 {...props}>{children}</h1>,
-    h2: ({ children, ...props }: any) => <h2 {...props}>{children}</h2>,
-    h3: ({ children, ...props }: any) => <h3 {...props}>{children}</h3>,
-    h4: ({ children, ...props }: any) => <h4 {...props}>{children}</h4>,
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
+    div: ({ children, ...props }: MockProps) => <div {...props}>{children}</div>,
+    p: ({ children, ...props }: MockProps) => <p {...props}>{children}</p>,
+    h1: ({ children, ...props }: MockProps) => <h1 {...props}>{children}</h1>,
+    h2: ({ children, ...props }: MockProps) => <h2 {...props}>{children}</h2>,
+    h3: ({ children, ...props }: MockProps) => <h3 {...props}>{children}</h3>,
+    h4: ({ children, ...props }: MockProps) => <h4 {...props}>{children}</h4>,
+    span: ({ children, ...props }: MockProps) => <span {...props}>{children}</span>,
   },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
+  AnimatePresence: ({ children }: MockProps) => <>{children}</>,
   useAnimation: () => ({ start: vi.fn() }),
   useInView: () => [null, false],
 }));

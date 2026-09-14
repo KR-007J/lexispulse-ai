@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Key, ShieldCheck, Activity, Check, RefreshCw, AlertCircle, Sparkles, ExternalLink } from 'lucide-react';
+import { X, Key, ShieldCheck, Check, RefreshCw, ExternalLink } from 'lucide-react';
 import { soundFX } from '../utils/audio';
 
 const BACKEND_API = 'http://localhost:8000';
+
+interface DiagnosticsData {
+  status: string;
+  model: string;
+  engineMode: string;
+  keyConfigured: boolean;
+  diagnosticsStatus: string;
+  [key: string]: unknown;
+}
 
 interface ApiKeyModalProps {
   isOpen: boolean;
@@ -14,7 +23,7 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => 
   const [apiKey, setApiKey] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
-  const [diagnostics, setDiagnostics] = useState<any>(null);
+  const [diagnostics, setDiagnostics] = useState<DiagnosticsData | null>(null);
   const [pingLatency, setPingLatency] = useState<number | null>(null);
 
   useEffect(() => {

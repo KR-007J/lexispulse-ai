@@ -5,7 +5,7 @@ class SoundFX {
 
   private init() {
     if (!this.ctx && typeof window !== 'undefined') {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (AudioCtx) {
         this.ctx = new AudioCtx();
       }
@@ -36,7 +36,9 @@ class SoundFX {
 
       osc.start();
       osc.stop(this.ctx.currentTime + 0.04);
-    } catch {}
+    } catch {
+      // AudioContext unavailable or autoplay restricted by browser policy
+    }
   }
 
   playSuccess() {
@@ -65,7 +67,9 @@ class SoundFX {
         osc.start(now + i * 0.05);
         osc.stop(now + i * 0.05 + 0.15);
       });
-    } catch {}
+    } catch {
+      // AudioContext unavailable or autoplay restricted by browser policy
+    }
   }
 }
 

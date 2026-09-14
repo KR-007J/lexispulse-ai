@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Play, ShieldAlert, Sparkles, Clock, Globe, FileText, CheckCircle2, Scale } from 'lucide-react';
+import { ArrowUpRight, Play, ShieldAlert, Sparkles, Clock, Globe } from 'lucide-react';
 import { FadingVideo } from './FadingVideo';
 import { BlurText } from './BlurText';
 import { SAMPLE_CONTRACTS, ContractSample } from '../data/sampleContracts';
@@ -48,7 +48,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         </motion.div>
 
         {/* Challenge Problem Statement Headline */}
-        <h1 className="max-w-4xl mb-4">
+        <h1 className="max-w-4xl mb-4" aria-label="AI for Legal Assistance & Access">
           <BlurText
             text="AI for Legal Assistance & Access"
             className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.88] tracking-[-3px] sm:tracking-[-4px]"
