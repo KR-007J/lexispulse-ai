@@ -273,6 +273,9 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
       <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-black/85 backdrop-blur-lg">
         {/* Modal Window */}
         <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="dialog-title"
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -287,14 +290,14 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="font-heading italic text-xl sm:text-2xl text-white tracking-wide">
+                  <h3 id="dialog-title" className="font-heading italic text-xl sm:text-2xl text-white tracking-wide">
                     {contract.name}
                   </h3>
                   <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
                     Live Gemini 2.0 Flash AST
                   </span>
                 </div>
-                <div className="flex items-center gap-3 text-xs text-white/60 font-mono mt-0.5">
+                <div className="flex items-center gap-3 text-xs text-zinc-200 font-mono mt-0.5">
                   <span className="flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                     {backendOnline ? 'Backend Online (8000)' : 'Local Engine Active'}
@@ -302,7 +305,7 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
                   <span>•</span>
                   <span>Latency: {liveLatencyMs}ms</span>
                   <span className="hidden md:inline">•</span>
-                  <span className="hidden md:inline text-white/40">{liveAttestationHash}</span>
+                  <span className="hidden md:inline text-zinc-300">{liveAttestationHash}</span>
                 </div>
               </div>
             </div>
@@ -312,14 +315,16 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
               <button
                 onClick={() => setSoundEnabled(!soundEnabled)}
                 title={soundEnabled ? 'Mute Audio' : 'Enable Audio'}
-                className="w-9 h-9 rounded-full liquid-glass flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                aria-label={soundEnabled ? 'Mute audio feedback' : 'Enable audio feedback'}
+                className="w-9 h-9 rounded-full liquid-glass flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
               >
-                {soundEnabled ? <Volume2 className="w-4 h-4 text-cyan-300" /> : <VolumeX className="w-4 h-4 text-white/40" />}
+                {soundEnabled ? <Volume2 className="w-4 h-4 text-cyan-300" /> : <VolumeX className="w-4 h-4 text-zinc-300" />}
               </button>
 
               <button
                 onClick={handlePrintReport}
                 title="Export / Print Official Audit Dossier"
+                aria-label="Export official legal audit dossier"
                 className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full liquid-glass text-xs font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors cursor-pointer border border-cyan-500/30 text-cyan-300"
               >
                 <Printer className="w-3.5 h-3.5 text-cyan-300" />
@@ -328,7 +333,9 @@ export const RedlineStudioModal: React.FC<RedlineStudioModalProps> = ({
 
               <button
                 onClick={onClose}
-                className="w-9 h-9 rounded-full liquid-glass flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                title="Close legal audit studio"
+                aria-label="Close legal audit studio"
+                className="w-9 h-9 rounded-full liquid-glass flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>

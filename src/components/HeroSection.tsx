@@ -47,23 +47,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </span>
         </motion.div>
 
-        {/* Headline with Word-by-Word Blur Animation */}
-        <div className="max-w-4xl mb-4">
+        {/* Challenge Problem Statement Headline */}
+        <h1 className="max-w-4xl mb-4">
           <BlurText
-            text="Autonomous Legal Intelligence Across Every Clause"
+            text="AI for Legal Assistance & Access"
             className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.88] tracking-[-3px] sm:tracking-[-4px]"
             delayOffset={0.5}
           />
-        </div>
+        </h1>
 
-        {/* Subheading */}
+        {/* Subheading explicitly mapping to Hackathon Problem Statement */}
         <motion.p
           initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
           animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.8, ease: 'easeOut' }}
-          className="mt-3 text-sm sm:text-base md:text-lg text-white/80 max-w-2xl font-body font-light leading-relaxed"
+          className="mt-3 text-sm sm:text-base md:text-lg text-zinc-200 max-w-2xl font-body font-light leading-relaxed"
         >
-          Audit complex NDAs, MSAs, and employment contracts in sub-300ms. Detect uncapped indemnities, visualize side-by-side redlines, and translate legalese with zero hallucinations.
+          Making legal information and basic legal assistance accessible, understandable, and actionable for everyone. Audit complex contracts, compare agreements, translate legalese into plain English, and prepare for legal counsel with Google Gemini 2.0 Flash.
         </motion.p>
 
         {/* CTA Actions */}
@@ -75,6 +75,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         >
           <button
             onClick={() => onOpenStudio(selectedContract)}
+            aria-label="Launch Live Contract Audit and Legal Assistance Studio"
             className="flex items-center gap-2 px-6 py-3.5 rounded-full liquid-glass-strong text-white text-sm md:text-base font-semibold hover:scale-105 hover:bg-white/15 transition-all duration-300 shadow-2xl group cursor-pointer"
           >
             <span>Launch Live Contract Audit</span>
@@ -83,7 +84,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           <button
             onClick={() => onOpenStudio(selectedContract)}
-            className="flex items-center gap-2 text-sm md:text-base text-white/90 hover:text-white font-medium font-body transition-colors cursor-pointer group"
+            aria-label="View Redline Diff Demo and Plain English Translation"
+            className="flex items-center gap-2 text-sm md:text-base text-zinc-100 hover:text-white font-medium font-body transition-colors cursor-pointer group"
           >
             <div className="w-8 h-8 rounded-full liquid-glass flex items-center justify-center group-hover:scale-110 transition-transform">
               <Play className="w-3.5 h-3.5 fill-white text-white ml-0.5" />
@@ -105,7 +107,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="font-heading italic text-3xl sm:text-4xl text-white tracking-tight">
                 240 ms
               </div>
-              <div className="text-xs text-white/70 font-body font-light mt-1">
+              <div className="text-xs text-zinc-200 font-body font-light mt-1">
                 Average Gemini 2.0 Triage Speed
               </div>
             </div>
@@ -117,7 +119,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="font-heading italic text-3xl sm:text-4xl text-white tracking-tight">
                 99.8%
               </div>
-              <div className="text-xs text-white/70 font-body font-light mt-1">
+              <div className="text-xs text-zinc-200 font-body font-light mt-1">
                 Grounded Statutory Accuracy
               </div>
             </div>
@@ -134,7 +136,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       >
         <div className="p-3.5 sm:p-4 rounded-[1.5rem] liquid-glass flex flex-col gap-2 max-w-sm w-full border border-white/10 shadow-2xl">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-white/60 font-body uppercase tracking-wider">
+            <span className="text-[11px] font-semibold text-zinc-200 font-body uppercase tracking-wider">
               1-Click Contract Preloaders
             </span>
             <span className="text-xs text-cyan-300 font-mono">

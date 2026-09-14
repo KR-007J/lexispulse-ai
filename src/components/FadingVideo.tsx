@@ -88,7 +88,8 @@ export const FadingVideo: React.FC<FadingVideoProps> = ({ src, className = '', s
       autoPlay
       muted
       playsInline
-      preload="auto"
+      preload="metadata"
+      aria-hidden="true"
       className={className}
       style={{ ...style, transition: 'none' }}
     />

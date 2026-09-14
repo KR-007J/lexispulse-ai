@@ -1,12 +1,29 @@
 {
-  "name": "lexispulse-ai",
+  "name": "ai-for-legal-assistance-and-access",
+  "displayName": "AI for Legal Assistance & Access (LexisPulse AI)",
+  "version": "2.0.0",
   "private": true,
-  "version": "1.0.0",
+  "description": "GenAI-powered solution that makes legal information and basic legal assistance accessible, understandable, and actionable for everyone. Built for PromptWars 2026 AI Calibration Track.",
+  "keywords": [
+    "ai-for-legal-assistance-and-access",
+    "legal-assistance",
+    "legal-access",
+    "gemini-2.0-flash",
+    "promptwars-2026",
+    "contract-redline",
+    "plain-english-legal"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test scripts/unit_tests.mjs && node scripts/a11y_audit.cjs",
+    "test:unit": "node --test scripts/unit_tests.mjs",
+    "test:a11y": "node scripts/a11y_audit.cjs",
+    "test:backend": "python3 backend/test_audit.py",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "clsx": "^2.1.1",

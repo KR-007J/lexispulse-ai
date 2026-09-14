@@ -10,8 +10,13 @@ import time
 import json
 import hashlib
 from typing import List, Dict, Any, Optional
-from google import genai
-from google.genai import types
+
+try:
+    from google import genai
+    from google.genai import types
+except ImportError:
+    genai = None
+    types = None
 
 DEFAULT_MODEL = "gemini-2.0-flash"
 
@@ -58,7 +63,7 @@ class LegalGenAIEngine:
         self._init_client()
 
     def _init_client(self):
-        if self.api_key and self.api_key not in ["DEMO_KEY_LEGAL", ""]:
+        if self.api_key and self.api_key not in ["DEMO_KEY_LEGAL", ""] and genai is not None:
             try:
                 self.client = genai.Client(api_key=self.api_key)
                 self.diagnostics_status = "GEMINI_LIVE_CONNECTED"
