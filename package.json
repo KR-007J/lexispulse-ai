@@ -21,7 +21,7 @@
     "test": "vitest run --coverage",
     "test:unit": "node --test scripts/unit_tests.mjs",
     "test:a11y": "node scripts/a11y_audit.cjs",
-    "test:backend": "python3 backend/test_audit.py",
+    "test:backend": "python3 -m unittest discover tests",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
     "test:watch": "vitest",

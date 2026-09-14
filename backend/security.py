@@ -1,6 +1,12 @@
 """
 LexisPulse AI: Enterprise Security & Threat Mitigation Module
 Implements prompt injection filtering, payload bounding, HTML sanitization, and cryptographic hashing.
+
+Compliance Anchors:
+- CWE-74: Mitigation of Prompt Injection & Command Injection
+- CWE-79: Mitigation of Cross-Site Scripting (XSS) via HTML element stripping
+- CWE-20: Strict input validation and 5MB document payload bounding
+- OWASP Top 10 for LLM: LLM01 (Prompt Injection) and LLM02 (Sensitive Data Disclosure)
 """
 
 import re
